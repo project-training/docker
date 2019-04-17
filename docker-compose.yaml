@@ -1,0 +1,48 @@
+version: '3'
+services:
+  mongo_db:
+    image: angpao/mongodb-ubuntu:timezone-asia-bangkok
+    volumes:
+      - /Users/angpao/Software/mongo_db/data:/data/db
+#      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "27017:27017"
+  postgres_db:
+    image: angpao/postgres-alpine:timezone-asia-bangkok
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres_db
+    volumes:
+      - /Users/angpao/Software/postgres_db:/var/lib/postgresql/data
+#      - /etc/localtime:/etc/localtime:ro 
+    ports:
+      - '5432:5432'
+#  jenkins:
+#    image: jenkins/jenkins:2.164.1
+#    user: 'root'
+#    ports:
+#      - "8080:8080"
+#      - "50000:50000"
+#    volumes:
+#      - /Users/angpao/Software/jenkins_home:/var/jenkins_home
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - /usr/bin/docker:/usr/bin/docker:ro
+  mysql:
+    image: mysql:8 
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    volumes:
+      - /Users/angpao/Software/mysql_db:/var/lib/mysql
+#  spring:
+#    image: angpao/hello-spring:v0.0.6
+#    ports:
+#      - "8080:8080"
+#    links:
+#      - mongo_db
